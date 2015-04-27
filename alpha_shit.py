@@ -79,16 +79,17 @@ def test_if_even(x):
 # calculates jacobi symbol (a n)
 p = 5545545544607
 q = 97846352783659
-n = p * q 
+N = p * q 
 
 
-def jacobi(a, n):
+def legendre(a, n):    # use prime n 
+
     if a == 0:
         return 0
     if a == 1:
         return 1
     e = 0
-    a1 = a                         # retains orig value 
+    a1 = a                         # retains orig value of a (tests on a1 (=a))
     while test_if_even(a1):       
         e += 1
         a1 /= 2
@@ -96,13 +97,15 @@ def jacobi(a, n):
 
     s = 0
 
-    if test_if_even(e):
-        s = 1
-    elif n % 8 in {1, 7}:
+#Cacluate even part of Legendre Symbol
+    if test_if_even(e):  
+        s = 1                 
+    elif n % 8 in {1, 7}:   
         s = 1
     elif n % 8 in {3, 5}:
         s = -1
 
+#Calculate odd part of Legendre 
     if n % 4 == 3 and a1 % 4 == 3:
         s *= -1
 
@@ -111,11 +114,13 @@ def jacobi(a, n):
     if a1 == 1:
         return s
     else:
-        return s * jacobi(n1, a1)
+        return s * legendre(n1, a1)
+#end legendre def
+
 
 def quadratic_non_residue(p):
     a = 0
-    while jacobi(a, p) != -1:
+    while legendre(a, p) != -1:
         a = randint(1, p)
 
     return a
