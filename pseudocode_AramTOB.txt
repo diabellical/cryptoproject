@@ -1,0 +1,47 @@
+Pubkey with G-M
+Sender:Aram 
+Recipiant: Bradford 
+
+1.  Aram { 
+    i) prelim
+        a. Aram's PUBkeyChain includes PU_bradford
+        b. Message to be sent: aMb 
+    }
+    
+    ii) Encryption Scheme : Use Goldwasser Micali =: Egm => aCb
+            with aCb = Egm = [PU_bradford,aMb]  :: 
+        
+    
+    Bradford{1. KeyGen: 
+                a. gen large P1 and P2 independently and randomly
+                b. compute product N ( = P1*P2)
+                c. find some non-residue x: legenre symbols satisfy:
+                        (x/p)=(x/q) =-1 and Jocobi (x/N) = +1 
+                   #note that x can be found by selecting random values 
+                   # and testing two L-symbols: if p and q = 3 mod 4, then N-1 
+                   #has the required property
+            Define PUB_bradford = (x, N)
+            Define PRI_ bradford = (p, q) 
+           
+    Aram{    2. Encryption: 
+                a. Aram encodes aMb as bitstring aMb=(m1,m2,...,mn). 
+                b. For each m(i), Aram generates random y(i) from: 
+                    y(i) in group of units mod N (or gcd{y(i), N) =1
+                c. Bit by bit, output: 
+                    ci = (y(i)^2)x^(AmB(i)) mod N
+                       where AmB(i) is the ith plaintext message
+                
+            2B:  Send aCb. 
+            
+    Bradford{3. Decryption: 
+                a. Recieve aCb = (c(1), c(2), ... c(n))
+                b. for each i, use factorization (p,q) of N to 
+                      determine if: 
+                         i) is c(i) a quadratic reside?
+                                if yes => Am(i)B = 0
+                                   else => Am(i)B = 1 
+                                   
+            
+            
+            
+    
