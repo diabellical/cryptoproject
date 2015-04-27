@@ -1,4 +1,4 @@
-__author__ = 'user1'
+__author__ = "Bingham & Fournier" 
 
 
 import functools
@@ -11,7 +11,7 @@ from random import randint
 # n is the number to be tested
 # t is the security parameter
 
-
+'''
 def miller_rabin(n, t): #here we have chosen primes to simplify
     assert(n % 2 == 1)
     assert(n > 4)
@@ -70,21 +70,26 @@ def make_big_prime(size):
 
     return nearest_prime(n)
 
+'''
+
+
 def test_if_even(x):
     return x % 2 == 0
 
-
-
 # calculates jacobi symbol (a n)
+p = 5545545544607
+q = 97846352783659
+n = p * q 
+
+
 def jacobi(a, n):
     if a == 0:
         return 0
     if a == 1:
         return 1
-
     e = 0
-    a1 = a
-    while test_if_even(a1):
+    a1 = a                         # retains orig value 
+    while test_if_even(a1):       
         e += 1
         a1 /= 2
     assert 2**e * a1 == a
@@ -221,13 +226,16 @@ def add_ciphints(private_key, a, b):
     """Add one encrypted integer to another"""
     return a * b % public_key.n_sq
 
+'''
 def add_const_ciphint(public_key, a, n):
     """Add constant n to an encrypted integer"""
     return a * base_raised_mod(public_key.g, n, public_key.n_sq) % public_key.n_sq
 
+
 def mul_const_ciphint(public_key, a, n):
     """Multiplies an encrypted integer by a constant"""
     return base_raised_mod(a, n, public_key.n_sq)
+'''
 
 def decrypt(private_key, public_key, aEb):
     x = pow(aEb, private_key.l, public_key.n_sq) - 1
