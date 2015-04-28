@@ -243,6 +243,6 @@ def mul_const_ciphint(public_key, a, n):
 '''
 
 def decrypt(private_key, public_key, aEb):
-    x = pow(aEb, private_key.l, public_key.n_sq) - 1
-    message = ((x // public_key.n) * private_key.m) % public_key.n
+    x = (pow(aEb, private_key.l, public_key.n_sq) - 1)
+    message = ((x // public_key.n) * private_key.m) % public_key.n  #cf generate_key() for "_key.n"
     return message
