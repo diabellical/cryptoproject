@@ -1,7 +1,7 @@
 from random import randint
 import keyGen
 from keyGen import *
-message = 1937
+message = 0
 def int_to_bool_list(plain): #list(bools) <- delimited bits <-binary <-integer
     return [b == "1" for b in "{0:b}".format(plain)] # n is option to format as number.
 
@@ -25,6 +25,7 @@ def bool_list_to_int(bool_list):  # int <- binary  <-delimited bits <- list(bool
 '''
 
 def encrypt(message, pubK):
+    global cbin_m
     bin_m = int_to_bool_list(message)    #message to bools
     N, a = pubK                    #unpacks N, y for use in enclosed def
 
@@ -33,7 +34,10 @@ def encrypt(message, pubK):
         if bit:
             return ((a * pow(x, 2, N)) % N)   #pow(x,y,z) = x**y mod z
         return pow(x, 2, N)
-    return map(encrypt_bit, bin_m)
+    #map(encrypt_bit, bin_m)
+    #return map(encrypt_bit, bin_m)
+    print(encrypt_bit(bin_m))
+    return encrypt_bit(bin_m)
 
 def decrypt(cipher, privK):
     p, q = privK                   #unpacks p, q for use in enclosed def
@@ -43,8 +47,9 @@ def decrypt(cipher, privK):
             return False
         return True
 
-    m = map(decrypt_bit, cipher)
-    return bool_list_to_int(m)       #get back plaintext integer.
-
+    #m = map(decrypt_bit, cipher)
+    #return bool_list_to_int(m)    #get back plaintext integer.
+    print(decrypt_bit(cipher))
+    return decrypt_bit(cipher)
 encrypt(1937,pubKey_out)
-decrypt(c, priKey_out)
+decrypt(encrypt(1937,pubKey_out), priKey_out)
