@@ -8,7 +8,7 @@ from foo import legendre
 
 
 def int_to_bool_list(n): #list(bools) <- delimited bits <-binary <-integer
-    return [b == "1" for b in "{0:b}".format(n)] # n is option to format as number.
+    return [b == "1" for b in "{0:b}".format(n)] 
 
 '''
 >>>int_to_bool_list(2)
