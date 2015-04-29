@@ -1,12 +1,9 @@
 from random import randint
-import keygen
-from keygen import *
-
-
-
-
-def int_to_bool_list(n): #list(bools) <- delimited bits <-binary <-integer
-    return [b == "1" for b in "{0:b}".format(n)] 
+import keyGen
+from keyGen import *
+message = 1937
+def int_to_bool_list(plain): #list(bools) <- delimited bits <-binary <-integer
+    return [b == "1" for b in "{0:b}".format(plain)] # n is option to format as number.
 
 '''
 >>>int_to_bool_list(2)
@@ -34,7 +31,7 @@ def encrypt(message, pubK):
     def encrypt_bit(bit):                #bit by bit encryption
         x = randint(0, N)
         if bit:
-            return ((y * pow(x, 2, N)) % N)   #pow(x,y,z) = x**y mod z
+            return ((a * pow(x, 2, N)) % N)   #pow(x,y,z) = x**y mod z
         return pow(x, 2, N)
     return map(encrypt_bit, bin_m)
 
@@ -48,3 +45,6 @@ def decrypt(cipher, privK):
 
     m = map(decrypt_bit, cipher)
     return bool_list_to_int(m)       #get back plaintext integer.
+
+encrypt(1937,pubKey_out)
+decrypt(c, priKey_out)
