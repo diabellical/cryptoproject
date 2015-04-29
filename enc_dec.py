@@ -1,8 +1,6 @@
 from random import randint
-import kegen ## project module
-from foo import legendre
-#be sure, (N, y) are imported, as well as p,q.
-
+import keygen
+from keygen import *
 
 
 
