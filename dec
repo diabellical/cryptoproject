@@ -1,0 +1,41 @@
+#Bob's decryption script.
+#Bob's keys.
+from keyGen import *
+from enc import *
+
+p = 5545545544607
+q = 97846352783659
+N = p * q 
+
+# This function will take a decrypted string of booleans and recover an integer
+def bool_list_to_int(bool_list):  # int <- binary  <-delimited bits <- list(bools)
+    s = ''.join(['1' if b else '0' for b in bool_list])
+    return int(s, 2)
+#for example
+'''
+>>> bool_list_to_int([True,True,False])
+6
+>>> bool_list_to_int([True,True,False,True])
+13
+>>>'''
+
+# decryption function, takes list of integers that encrypted the
+# bits of the binary rep. of the integer message and recovers bits
+def decrypt(cipher):
+    bool_m=[] # boolean string that is binary rep of decrypted msg
+    def decrypt_bit(bit):
+        bit= bit % p
+        e = legendre(bit, p)   # legendre symbol of each encrypted bit
+        if e == 1:          # determines the value of that bit
+            return False
+        return True
+    for bit in cipher:               #builds list of decrypted bits
+        bool_m.append(decrypt_bit(bit))
+    print(bool_m)
+    m=bool_list_to_int(bool_m)  #assembles integer message
+    return m
+
+p=decrypt(d)  # d was our ciphertext from the encryption script
+
+print(p)
+
