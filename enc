@@ -1,0 +1,44 @@
+#Encryption script for Alice who is sending a message using Bob's public key.
+#We import the public key from the keyGen script, choose an integer to send as a message.
+from random import randint
+import keyGen
+from keyGen import *
+message = 8    # this is of course wholly insecure, and we should be requiring uniform message length
+def int_to_bool_list(plain): #list(bools) <- delimited bits <-binary <-integer
+    return [b == "1" for b in "{0:b}".format(plain)] # length of list depends on integer value
+#for example
+'''
+>>>int_to_bool_list(2) 
+[True, False]
+>>>int_to_bool_list(8)
+[True,False,False,False]
+
+
+
+def bool_list_to_int(bool_list):  # int <- binary  <-delimited bits <- list(bools)
+    s = ''.join(['1' if b else '0' for b in bool_list])
+    return int(s, 2)
+
+>>> bool_list_to_int([True,True,False])
+6
+>>> bool_list_to_int([True,True,False,True])
+13
+>>>
+'''
+# Alices encryption function
+def encrypt(plain):
+    bin_m = int_to_bool_list(plain)    #message to bools
+    c=[]                    # list of bitwise ciphertexts
+    def encrypt_bit(b):                #bit by bit encryption
+        r = randint(0, N)               # this is the probabilistic component
+        if b:
+            c.append((a * pow(r, 2, N)) % N)   #pow(x,y,z) = x**y mod z
+        else:
+            c.append(pow(r, 2, N))
+    for bit in bin_m:
+        encrypt_bit(bit)
+    return c
+
+print(int_to_bool_list(message))
+d=encrypt(message)
+print(d)
